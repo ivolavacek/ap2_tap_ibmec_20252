@@ -21,5 +21,8 @@ public class MensalidadeDTO {
 
     private BigDecimal bolsaPercentual;
     private BigDecimal mensalidadeFinal;
+
+    private Long quantidadeTurmas;
+    private Long quantidadeDisciplinas;
 }
 

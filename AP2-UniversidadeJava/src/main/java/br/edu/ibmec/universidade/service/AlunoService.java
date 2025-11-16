@@ -2,7 +2,6 @@ package br.edu.ibmec.universidade.service;
 
 import br.edu.ibmec.universidade.dto.AlunoDTO;
 import br.edu.ibmec.universidade.dto.DataNascimentoDTO;
-import br.edu.ibmec.universidade.dto.MensalidadeDTO;
 import br.edu.ibmec.universidade.entity.Aluno;
 import br.edu.ibmec.universidade.entity.Curso;
 import br.edu.ibmec.universidade.entity.DataNascimento;
@@ -13,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -84,39 +82,6 @@ public class AlunoService {
             throw new RuntimeException("Não é possível deletar o aluno. Existem " + count + " inscrições associadas.");
         }
         repo.delete(aluno);
-    }
-
-    public MensalidadeDTO calcularMensalidade(Integer matricula) {
-        Aluno aluno = repo.findById(matricula)
-                .orElseThrow(() -> new RuntimeException("Aluno não encontrado"));
-
-        if (aluno.getCurso() == null) {
-            throw new RuntimeException("Aluno não possui curso associado.");
-        }
-
-        BigDecimal base = aluno.getCurso().getMensalidadeBase();
-        if (base == null) {
-            throw new RuntimeException("Curso não possui mensalidade definida.");
-        }
-
-        BigDecimal bolsa = aluno.getBolsaPercentual();
-        if (bolsa == null) bolsa = BigDecimal.ZERO;
-
-        // mensalidadeFinal = base * (1 - bolsa/100)
-        BigDecimal fatorDesconto = BigDecimal.ONE.subtract(
-                bolsa.divide(new BigDecimal("100"), 4, RoundingMode.HALF_UP)
-        );
-        BigDecimal finalValue = base.multiply(fatorDesconto)
-                .setScale(2, RoundingMode.HALF_UP);
-
-        return MensalidadeDTO.builder()
-                .matriculaAluno(aluno.getMatricula())
-                .nomeAluno(aluno.getNome())
-                .nomeCurso(aluno.getCurso().getNome())
-                .mensalidadeBase(base)
-                .bolsaPercentual(bolsa)
-                .mensalidadeFinal(finalValue)
-                .build();
     }
 
     /* ===== Mapping ===== */

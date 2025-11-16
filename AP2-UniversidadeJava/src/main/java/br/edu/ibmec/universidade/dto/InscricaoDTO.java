@@ -11,5 +11,5 @@ public class InscricaoDTO {
     private Integer alunoId; // matricula do aluno
     private Integer turmaId;
     private Integer ano;
-    private String semestre;
+    private Integer semestre;
 }

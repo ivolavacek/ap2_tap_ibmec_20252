@@ -1,10 +1,8 @@
 package br.edu.ibmec.universidade.entity;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,9 +26,6 @@ public class Curso {
 
     private String nome;
 
-    @Column(precision = 10, scale = 2)
-    private BigDecimal mensalidadeBase;
-
     @OneToMany(mappedBy = "curso")
     private List<Disciplina> disciplinas = new ArrayList<>();
 
@@ -52,8 +47,7 @@ public class Curso {
         }
     }
     
-    public Curso(String nome, BigDecimal mensalidadeBase) {
+    public Curso(String nome) {
         this.nome = nome;
-        this.mensalidadeBase = mensalidadeBase;
     }
 }

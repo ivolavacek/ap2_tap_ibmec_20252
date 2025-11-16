@@ -31,12 +31,14 @@ public class Inscricao {
     private Turma turma;
 
     private Integer ano;      // ex.: 2025
-    private String semestre;  // ex.: "2025.1" ou "2025.2"
+    private Integer semestre;  // ex.: "2025.1" ou "2025.2"
+    private boolean ativa = true;
 
-    public Inscricao(Aluno aluno, Turma turma, Integer ano, String semestre) {
+    public Inscricao(Aluno aluno, Turma turma, Integer ano, Integer semestre, boolean ativa) {
         this.aluno = aluno;
         this.turma = turma;
         this.ano = ano;
         this.semestre = semestre;
+        this.ativa = ativa;
     }
 }

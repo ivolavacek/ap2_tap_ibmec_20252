@@ -1,7 +1,6 @@
 package br.edu.ibmec.universidade.resource;
 
 import br.edu.ibmec.universidade.dto.AlunoDTO;
-import br.edu.ibmec.universidade.dto.MensalidadeDTO;
 import br.edu.ibmec.universidade.service.AlunoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -19,7 +18,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/alunos")
 @RequiredArgsConstructor
-@Tag(name = "01 - Alunos", description = "CRUD de alunos")
+@Tag(name = "01 - Alunos", description = "Gestão de Alunos")
 public class AlunoResource {
     private final AlunoService service;
 
@@ -48,16 +47,16 @@ public class AlunoResource {
         } catch (Exception e) { return error(e); }
     }
 
-    @GetMapping("/{id}/mensalidade")
-    @Operation(summary = "Consultar mensalidade do aluno (já considerando bolsa)")
-    public ResponseEntity<?> mensalidade(@PathVariable Integer id) {
-        try {
-            MensalidadeDTO dto = service.calcularMensalidade(id);
-            return ResponseEntity.ok(dto);
-        } catch (Exception e) {
-            return error(e);
-        }
-    }
+    // @GetMapping("/{id}/mensalidade")
+    // @Operation(summary = "Consultar mensalidade do aluno (já considerando bolsa)")
+    // public ResponseEntity<?> mensalidade(@PathVariable Integer id) {
+    //     try {
+    //         MensalidadeDTO dto = service.calcularMensalidade(id);
+    //         return ResponseEntity.ok(dto);
+    //     } catch (Exception e) {
+    //         return error(e);
+    //     }
+    // }
 
     @PutMapping("/{matricula}/curso/{cursoId}")
     @Operation(summary = "Associar aluno a um curso")

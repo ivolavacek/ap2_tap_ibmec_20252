@@ -32,14 +32,14 @@ public class UniversidadeApplication {
             if (cursoRepo.count() > 0) return; // evita duplicar
 
             // ----- Cursos -----
-            Curso cdia  = new Curso("Ciência de Dados e IA", new BigDecimal("2500.00"));
-            Curso egi = new Curso("Engenharia e Gestão Industrial", new BigDecimal("3000.00"));
+            Curso cdia  = new Curso("Ciência de Dados e IA");
+            Curso egi = new Curso("Engenharia e Gestão Industrial");
             cursoRepo.saveAll(List.of(cdia, egi));
 
             // ----- Disciplinas -----
-            Disciplina bd  = new Disciplina("Banco de Dados", cdia);
-            Disciplina ml  = new Disciplina("Machine Learning", cdia);
-            Disciplina log = new Disciplina("Logística", egi);
+            Disciplina bd  = new Disciplina("Banco de Dados", cdia, new BigDecimal("500.00"));
+            Disciplina ml  = new Disciplina("Machine Learning", cdia, new BigDecimal("500.00"));
+            Disciplina log = new Disciplina("Logística", egi, new BigDecimal("500.00"));
             discRepo.saveAll(List.of(bd, ml, log));
 
             // ----- Professores -----
@@ -72,9 +72,9 @@ public class UniversidadeApplication {
             alunoRepo.saveAll(List.of(ivo, dan));
 
             // ----- Inscrições -----
-            Inscricao insc1 = new Inscricao(ivo, turmaBd, 2025, "2025.2");
-            Inscricao insc2 = new Inscricao(ivo, turmaMl,  2025, "2025.2");
-            Inscricao insc3 = new Inscricao(dan, turmaLog, 2025, "2025.2");
+            Inscricao insc1 = new Inscricao(ivo, turmaBd, 2025, 2, true);
+            Inscricao insc2 = new Inscricao(ivo, turmaMl,  2025, 2, true);
+            Inscricao insc3 = new Inscricao(dan, turmaLog, 2025, 2, true);
             inscRepo.saveAll(List.of(insc1, insc2, insc3));
 
             System.out.println("[OK] Dados iniciais carregados com sucesso!");
