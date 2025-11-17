@@ -14,7 +14,7 @@ import java.util.*;
 @RestController
 @RequestMapping("/turmas")
 @RequiredArgsConstructor
-@Tag(name = "06 - Turmas", description = "Gestão de Turmas")
+@Tag(name = "04 - Turmas", description = "Gestão de Turmas")
 public class TurmaResource {
     private final TurmaService service;
 

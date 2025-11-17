@@ -41,6 +41,7 @@ public class AlunoService {
     }
 
     public AlunoDTO create(AlunoDTO dto) {
+        validarBolsaPercentual(dto.getBolsaPercentual());
         Aluno a = fromDTO(dto);
         return toDTO(repo.save(a));
     }
@@ -75,6 +76,9 @@ public class AlunoService {
         } else {
             existing.setCurso(null);
         }
+
+        validarBolsaPercentual(dto.getBolsaPercentual());
+        existing.setBolsaPercentual(dto.getBolsaPercentual());
 
         return toDTO(repo.save(existing));
     }
