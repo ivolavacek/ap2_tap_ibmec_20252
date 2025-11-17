@@ -14,7 +14,7 @@ import java.util.*;
 @RestController
 @RequestMapping("/turmas")
 @RequiredArgsConstructor
-@Tag(name = "05 - Turmas", description = "Gestão de Turmas")
+@Tag(name = "06 - Turmas", description = "Gestão de Turmas")
 public class TurmaResource {
     private final TurmaService service;
 
@@ -38,6 +38,20 @@ public class TurmaResource {
             TurmaDTO saved = service.create(dto);
             return ResponseEntity.created(URI.create("/turmas/" + saved.getId())).body(saved);
         } catch (Exception e) { return error(e); }
+    }
+
+    @PatchMapping("/{id}/ativa")
+    @Operation(summary = "Ativar ou desativar uma turma")
+    public ResponseEntity<?> atualizarStatusTurma(
+            @PathVariable Integer id,
+            @RequestParam boolean ativa
+    ) {
+        try {
+            TurmaDTO dto = service.atualizarStatusTurma(id, ativa);
+            return ResponseEntity.ok(dto);
+        } catch (Exception e) {
+            return error(e);
+        }
     }
 
     // @PutMapping("/{id}") @Operation(summary = "Atualizar turma")

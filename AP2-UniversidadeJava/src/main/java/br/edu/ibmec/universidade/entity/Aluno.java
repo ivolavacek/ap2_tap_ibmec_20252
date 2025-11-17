@@ -73,14 +73,14 @@ public class Aluno {
         }
     }
 
-    // public Aluno(Integer matricula, String nome, DataNascimento dataNascimento, Integer idade, boolean matriculaAtiva,
-    //              EstadoCivil estadoCivil, List<String> telefones) {
-    //     this.matricula = matricula;
-    //     this.nome = nome;
-    //     this.dataNascimento = dataNascimento;
-    //     this.idade = idade;
-    //     this.matriculaAtiva = matriculaAtiva;
-    //     this.estadoCivil = estadoCivil;
-    //     this.telefones = telefones;
-    // }
+    public Aluno(Integer matricula, String nome, DataNascimento dataNascimento, Integer idade, boolean matriculaAtiva,
+                 EstadoCivil estadoCivil, List<String> telefones) {
+        this.matricula = matricula;
+        this.nome = nome;
+        this.dataNascimento = dataNascimento;
+        this.idade = idade;
+        this.matriculaAtiva = matriculaAtiva;
+        this.estadoCivil = estadoCivil;
+        this.telefones = telefones;
+    }
 }

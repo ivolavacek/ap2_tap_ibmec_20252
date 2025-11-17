@@ -14,7 +14,7 @@ import java.util.*;
 @RestController
 @RequestMapping("/inscricoes")
 @RequiredArgsConstructor
-@Tag(name = "06 - Inscrições", description = "Gestão de Inscrições")
+@Tag(name = "07 - Inscrições", description = "Gestão de Inscrições")
 public class InscricaoResource {
     private final InscricaoService service;
 

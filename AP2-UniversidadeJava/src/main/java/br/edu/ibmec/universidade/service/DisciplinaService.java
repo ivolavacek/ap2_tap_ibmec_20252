@@ -47,7 +47,8 @@ public class DisciplinaService {
 
     private DisciplinaDTO toDTO(Disciplina d) {
         Integer cursoId = d.getCurso() == null ? null : d.getCurso().getCodigo();
-        return DisciplinaDTO.builder().id(d.getId()).nome(d.getNome()).cursoId(cursoId).build();
+        String cursoNome = d.getCurso() == null ? null : d.getCurso().getNome();
+        return DisciplinaDTO.builder().id(d.getId()).nome(d.getNome()).cursoId(cursoId).cursoNome(cursoNome).build();
     }
 
     private Disciplina fromDTO(DisciplinaDTO dto) {

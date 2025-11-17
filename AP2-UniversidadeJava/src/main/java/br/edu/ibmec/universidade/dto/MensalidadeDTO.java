@@ -15,14 +15,13 @@ public class MensalidadeDTO {
 
     private Integer matriculaAluno;
     private String nomeAluno;
-
     private String nomeCurso;
+    
+    private BigDecimal bolsaPercentual;
+    
+    private Long quantidadeDisciplinas;
     private BigDecimal mensalidadeBase;
 
-    private BigDecimal bolsaPercentual;
     private BigDecimal mensalidadeFinal;
-
-    private Long quantidadeTurmas;
-    private Long quantidadeDisciplinas;
 }
 

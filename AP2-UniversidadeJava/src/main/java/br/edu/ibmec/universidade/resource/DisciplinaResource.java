@@ -14,7 +14,7 @@ import java.util.*;
 @RestController
 @RequestMapping("/disciplinas")
 @RequiredArgsConstructor
-@Tag(name = "03 - Disciplinas", description = "Gestão de Disciplinas")
+@Tag(name = "04 - Disciplinas", description = "Gestão de Disciplinas")
 public class DisciplinaResource {
     private final DisciplinaService service;
 

@@ -6,8 +6,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data @NoArgsConstructor @AllArgsConstructor @Builder
-public class InscricaoDTO {
-    private Integer id;
-    private Integer alunoId; // matricula do aluno
-    private Integer turmaId;
+public class AlunoResumoDTO {
+    private Integer matricula;
+    private String nome;
+    private Integer cursoId;
+    private String nomeCurso;
 }

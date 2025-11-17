@@ -29,8 +29,26 @@ public class TurmaService {
 
     public TurmaDTO create(TurmaDTO dto) {
         Turma t = fromDTO(dto);
+        validateSemestre(t.getSemestre());
         return toDTO(repo.save(t));
     }
+
+    private void validateSemestre(Integer semestre) {
+        if (semestre == null || (semestre != 1 && semestre != 2)) {
+            throw new IllegalArgumentException("Semestre deve ser 1 ou 2");
+        }
+    }
+
+    public TurmaDTO atualizarStatusTurma(Integer id, boolean ativa) {
+        Turma turma = repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Turma não encontrada"));
+
+        turma.setAtiva(ativa);
+        turma = repo.save(turma);
+
+        return toDTO(turma);
+    }
+
 
     public TurmaDTO update(Integer id, TurmaDTO dto) {
         Turma existing = repo.findById(id).orElseThrow(() -> new RuntimeException("Turma não encontrada"));
@@ -54,7 +72,20 @@ public class TurmaService {
     private TurmaDTO toDTO(Turma t) {
         Integer disciplinaId = t.getDisciplina() == null ? null : t.getDisciplina().getId();
         Integer professorId  = t.getProfessor()  == null ? null : t.getProfessor().getId();
-        return TurmaDTO.builder().id(t.getId()).disciplinaId(disciplinaId).professorId(professorId).build();
+        String disciplinaNome = t.getDisciplina() == null ? null : t.getDisciplina().getNome();
+        String professorNome  = t.getProfessor() == null ? null : t.getProfessor().getNome();
+
+        return TurmaDTO.builder()
+                .id(t.getId())
+                .disciplinaId(disciplinaId)
+                .professorId(professorId)
+                .semestre(t.getSemestre())   // <-- adicionado
+                .ano(t.getAno())             // <-- adicionado
+                .limiteFaltas(t.getLimiteFaltas()) // <-- adicionado
+                .disciplinaNome(disciplinaNome)
+                .professorNome(professorNome)
+                .ativa(t.isAtiva())
+                .build();
     }
 
     private Turma fromDTO(TurmaDTO dto) {
@@ -70,6 +101,10 @@ public class TurmaService {
                     .orElseThrow(() -> new RuntimeException("Professor não encontrado"));
             t.setProfessor(p);
         }
+        t.setAno(dto.getAno());
+        t.setSemestre(dto.getSemestre());
+        t.setLimiteFaltas(dto.getLimiteFaltas());
+        t.setAtiva(dto.getAtiva());
         return t;
     }
 }

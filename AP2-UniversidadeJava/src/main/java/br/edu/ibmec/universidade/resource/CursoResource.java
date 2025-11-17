@@ -14,7 +14,7 @@ import java.util.*;
 @RestController
 @RequestMapping("/cursos")
 @RequiredArgsConstructor
-@Tag(name = "02 - Cursos", description = "Gestão de Cursos")
+@Tag(name = "03 - Cursos", description = "Gestão de Cursos")
 public class CursoResource {
     private final CursoService service;
 

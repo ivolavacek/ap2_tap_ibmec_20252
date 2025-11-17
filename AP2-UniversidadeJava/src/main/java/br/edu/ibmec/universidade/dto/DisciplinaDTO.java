@@ -10,4 +10,5 @@ public class DisciplinaDTO {
     private Integer id;
     private String nome;
     private Integer cursoId; // relacionamento
+    private String cursoNome; // campo adicional para exibição
 }

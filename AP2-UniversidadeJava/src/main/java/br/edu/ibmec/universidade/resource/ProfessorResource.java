@@ -14,7 +14,7 @@ import java.util.*;
 @RestController
 @RequestMapping("/professores")
 @RequiredArgsConstructor
-@Tag(name = "04 - Professores", description = "Gestão de Professores")
+@Tag(name = "05 - Professores", description = "Gestão de Professores")
 public class ProfessorResource {
     private final ProfessorService service;
 

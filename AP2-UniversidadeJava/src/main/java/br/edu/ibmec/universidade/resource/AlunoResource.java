@@ -1,6 +1,8 @@
 package br.edu.ibmec.universidade.resource;
 
 import br.edu.ibmec.universidade.dto.AlunoDTO;
+import br.edu.ibmec.universidade.dto.AlunoDetalheDTO;
+import br.edu.ibmec.universidade.dto.AlunoResumoDTO;
 import br.edu.ibmec.universidade.service.AlunoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -10,6 +12,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.net.URI;
 import java.util.Collections;
 import java.util.List;
@@ -34,7 +37,7 @@ public class AlunoResource {
     @GetMapping
     @Operation(summary = "Listar alunos")
     public ResponseEntity<?> list() {
-        try { List<AlunoDTO> out = service.list(); return ResponseEntity.ok(out); }
+        try { List<AlunoResumoDTO> out = service.list(); return ResponseEntity.ok(out); }
         catch (Exception e) { return error(e); }
     }
 
@@ -47,6 +50,18 @@ public class AlunoResource {
         } catch (Exception e) { return error(e); }
     }
 
+    @GetMapping("/{id}/detalhado")
+    @Operation(summary = "Buscar aluno por matrícula (detalhado)")
+    public ResponseEntity<?> getDetalhado(@PathVariable Integer id) {
+        try {
+            AlunoDetalheDTO dto = service.getDetalhe(id);
+            return dto == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(dto);
+        } catch (Exception e) {
+            return error(e);
+        }
+    }
+
+
     // @GetMapping("/{id}/mensalidade")
     // @Operation(summary = "Consultar mensalidade do aluno (já considerando bolsa)")
     // public ResponseEntity<?> mensalidade(@PathVariable Integer id) {
@@ -58,25 +73,55 @@ public class AlunoResource {
     //     }
     // }
 
-    @PutMapping("/{matricula}/curso/{cursoId}")
+    @PatchMapping("/{matricula}/curso")
     @Operation(summary = "Associar aluno a um curso")
-    public ResponseEntity<?> vincularCurso(
+    public ResponseEntity<?> atualizarCurso(
             @PathVariable Integer matricula,
-            @PathVariable Integer cursoId) {
+            @RequestParam Integer cursoId
+    ) {
         try {
-            AlunoDTO dto = service.vincularCurso(matricula, cursoId);
+            AlunoDTO dto = service.atualizarCurso(matricula, cursoId);
             return ResponseEntity.ok(dto);
         } catch (Exception e) {
             return error(e);
         }
     }
 
-    @PutMapping("/{id}")
-    @Operation(summary = "Atualizar aluno")
-    public ResponseEntity<?> update(@PathVariable Integer id, @RequestBody AlunoDTO dto) {
-        try { return ResponseEntity.ok(service.update(id, dto)); }
-        catch (Exception e) { return error(e); }
+    @PatchMapping("/{matricula}/bolsa")
+    @Operation(summary = "Atualizar bolsa percentual do aluno")
+    public ResponseEntity<?> atualizarBolsaPercentual(
+            @PathVariable Integer matricula,
+            @RequestParam BigDecimal bolsaPercentual) {
+        try {
+            AlunoDTO dto = service.atualizarBolsaPercentual(matricula, bolsaPercentual);
+            return ResponseEntity.ok(dto);
+        } catch (IllegalArgumentException e) {
+            // erro de validação (ex: fora de 0–100)
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return error(e); // supondo que você já tenha esse método no resource
+        }
     }
+
+    // @PutMapping("/{matricula}/curso/{cursoId}")
+    // @Operation(summary = "Associar aluno a um curso")
+    // public ResponseEntity<?> vincularCurso(
+    //         @PathVariable Integer matricula,
+    //         @PathVariable Integer cursoId) {
+    //     try {
+    //         AlunoDTO dto = service.vincularCurso(matricula, cursoId);
+    //         return ResponseEntity.ok(dto);
+    //     } catch (Exception e) {
+    //         return error(e);
+    //     }
+    // }
+
+    // @PutMapping("/{id}")
+    // @Operation(summary = "Atualizar aluno")
+    // public ResponseEntity<?> update(@PathVariable Integer id, @RequestBody AlunoDTO dto) {
+    //     try { return ResponseEntity.ok(service.update(id, dto)); }
+    //     catch (Exception e) { return error(e); }
+    // }
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Remover aluno")

@@ -1,6 +1,7 @@
 package br.edu.ibmec.universidade.service;
 
 import br.edu.ibmec.universidade.dto.CursoDTO;
+import br.edu.ibmec.universidade.dto.DisciplinaResumoDTO;
 import br.edu.ibmec.universidade.entity.Curso;
 import br.edu.ibmec.universidade.repository.CursoRepository;
 import lombok.RequiredArgsConstructor;
@@ -37,7 +38,21 @@ public class CursoService {
     }
 
     private CursoDTO toDTO(Curso c) {
-        return CursoDTO.builder().codigo(c.getCodigo()).nome(c.getNome()).build();
+        List<DisciplinaResumoDTO> disciplinasDTO = null;
+
+        if (c.getDisciplinas() != null) {
+            disciplinasDTO = c.getDisciplinas().stream()
+                    .map(d -> DisciplinaResumoDTO.builder()
+                            .id(d.getId())
+                            .nome(d.getNome())
+                            .build())
+                    .toList();
+        }
+        return CursoDTO.builder()
+            .codigo(c.getCodigo())
+            .nome(c.getNome())
+            .disciplinas(disciplinasDTO)
+            .build();
     }
 
     private Curso fromDTO(CursoDTO dto) {

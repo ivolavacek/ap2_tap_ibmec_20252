@@ -32,7 +32,7 @@ public class MensalidadeService {
 
         // 2) Filtrar inscrições ativas (se tiver esse campo)
         List<Inscricao> inscricoesAtivas = inscricoes.stream()
-                .filter(Inscricao::isAtiva) // ajuste se o nome do método for outro
+                .filter(i -> i.getTurma() != null && (i.getTurma().isAtiva()))
                 .toList();
 
         if (inscricoesAtivas.isEmpty()) {
@@ -67,7 +67,7 @@ public class MensalidadeService {
                 .setScale(2, RoundingMode.HALF_UP);
 
         // 5) Quantidade de turmas/disciplinas (pra você exibir se quiser)
-        long qtdTurmas = inscricoesAtivas.size();
+        // long qtdTurmas = inscricoesAtivas.size();
         long qtdDisciplinas = inscricoesAtivas.stream()
                 .map(inscricao -> inscricao.getTurma().getDisciplina().getId())
                 .distinct()
@@ -76,11 +76,11 @@ public class MensalidadeService {
         return MensalidadeDTO.builder()
                 .matriculaAluno(aluno.getMatricula())
                 .nomeAluno(aluno.getNome())
-                // se quiser, pode tirar o nomeCurso, já que a mensalidade agora é por disciplina
+                .nomeCurso(aluno.getCurso().getNome())
                 .mensalidadeBase(baseTotal)
                 .bolsaPercentual(bolsa)
                 .mensalidadeFinal(mensalidadeFinal)
-                .quantidadeTurmas(qtdTurmas)           // se você criar esse campo no DTO
+                // .quantidadeTurmas(qtdTurmas)           // se você criar esse campo no DTO
                 .quantidadeDisciplinas(qtdDisciplinas) // idem
                 .build();
     }

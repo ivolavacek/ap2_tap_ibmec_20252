@@ -36,6 +36,11 @@ public class Turma {
 
     @OneToMany(mappedBy = "turma")
     private List<Inscricao> inscricoes = new ArrayList<>();
+    
+    private Integer ano;
+    private Integer semestre;
+    private Integer limiteFaltas;
+    private boolean ativa;
 
     public void addInscricao(Inscricao inscricao) {
         if (inscricao == null) return;
@@ -55,8 +60,12 @@ public class Turma {
         }
     }
 
-    public Turma(Disciplina disciplina, Professor professor) {
+    public Turma(Disciplina disciplina, Professor professor, Integer ano, Integer semestre, Integer limiteFaltas, boolean ativa) {
         this.disciplina = disciplina;
         this.professor = professor;
+        this.ano = ano;
+        this.semestre = semestre;
+        this.limiteFaltas = limiteFaltas;
+        this.ativa = ativa;
     }
 }

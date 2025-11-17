@@ -44,8 +44,6 @@ public class InscricaoService {
                     .orElseThrow(() -> new RuntimeException("Turma não encontrada"));
             existing.setTurma(t);
         }
-        existing.setAno(dto.getAno());
-        existing.setSemestre(dto.getSemestre());
         return toDTO(repo.save(existing));
     }
 
@@ -58,7 +56,6 @@ public class InscricaoService {
         Integer turmaId    = i.getTurma() == null ? null : i.getTurma().getId();
         return InscricaoDTO.builder()
                 .id(i.getId()).alunoId(alunoId).turmaId(turmaId)
-                .ano(i.getAno()).semestre(i.getSemestre())
                 .build();
     }
 
@@ -75,8 +72,6 @@ public class InscricaoService {
                     .orElseThrow(() -> new RuntimeException("Turma não encontrada"));
             i.setTurma(t);
         }
-        i.setAno(dto.getAno());
-        i.setSemestre(dto.getSemestre());
         return i;
     }
 }

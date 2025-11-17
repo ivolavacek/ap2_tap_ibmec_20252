@@ -49,9 +49,9 @@ public class UniversidadeApplication {
             profRepo.saveAll(List.of(talita, thiago, luis));
 
             // ----- Turmas -----
-            Turma turmaBd = new Turma(bd, talita);
-            Turma turmaMl  = new Turma(ml, thiago);
-            Turma turmaLog  = new Turma(log, luis);
+            Turma turmaBd = new Turma(bd, talita, 2025, 2, 4, true);
+            Turma turmaMl  = new Turma(ml, thiago, 2025, 2, 4, true);
+            Turma turmaLog  = new Turma(log, luis, 2025, 2, 4, true);
             turmaRepo.saveAll(List.of(turmaBd, turmaMl, turmaLog));
 
             // ----- Alunos -----
@@ -72,9 +72,9 @@ public class UniversidadeApplication {
             alunoRepo.saveAll(List.of(ivo, dan));
 
             // ----- Inscrições -----
-            Inscricao insc1 = new Inscricao(ivo, turmaBd, 2025, 2, true);
-            Inscricao insc2 = new Inscricao(ivo, turmaMl,  2025, 2, true);
-            Inscricao insc3 = new Inscricao(dan, turmaLog, 2025, 2, true);
+            Inscricao insc1 = new Inscricao(ivo, turmaBd);
+            Inscricao insc2 = new Inscricao(ivo, turmaMl);
+            Inscricao insc3 = new Inscricao(dan, turmaLog);
             inscRepo.saveAll(List.of(insc1, insc2, insc3));
 
             System.out.println("[OK] Dados iniciais carregados com sucesso!");

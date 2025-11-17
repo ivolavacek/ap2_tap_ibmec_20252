@@ -1,5 +1,7 @@
 package br.edu.ibmec.universidade.dto;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,4 +11,5 @@ import lombok.NoArgsConstructor;
 public class CursoDTO {
     private Integer codigo;
     private String nome;
+    private List<DisciplinaResumoDTO> disciplinas;
 }
