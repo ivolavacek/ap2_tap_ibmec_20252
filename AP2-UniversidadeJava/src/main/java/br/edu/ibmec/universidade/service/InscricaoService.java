@@ -172,10 +172,6 @@ public class InscricaoService {
         Integer limite = turma != null ? turma.getLimiteFaltas() : null;
         Integer faltas = insc.getNumeroFaltas();
 
-        Integer faltasRestantes = null;
-        if (limite != null && faltas != null)
-            faltasRestantes = Math.max(0, limite - faltas);
-
         boolean aprovadoFaltas = false;
         if (limite == null || faltas == null) {
             aprovadoFaltas = true; // Não dá pra reprovar se não há informação
@@ -186,26 +182,24 @@ public class InscricaoService {
         return ResultadoAprovacaoDTO.builder()
                 .inscricaoId(insc.getId())
                 .alunoId(insc.getAluno() != null ? insc.getAluno().getMatricula() : null)
+                .alunoNome(insc.getAluno() != null ? insc.getAluno().getNome() : null)
                 .turmaId(insc.getTurma() != null ? insc.getTurma().getId() : null)
+                .disciplinaNome(insc.getTurma() != null ? insc.getTurma().getDisciplina().getNome() : null)
 
                 // notas
                 .ap1(insc.getAp1())
                 .ap2(insc.getAp2())
                 .ac(insc.getAc())
-                .as(insc.getAs())  // OU getNotaAs()
+                .as(insc.getAs())
 
                 // faltas
                 .numeroFaltas(faltas)
                 .limiteFaltas(limite)
-                .faltasRestantes(faltasRestantes)
 
                 // cálculo do strategy
                 .notaFinal(r.notaFinal())
-                .usouAS(r.usouAS())
 
-                // aprovação
-                .aprovadoPorNota(r.aprovadoPorNota())
-                .aprovadoPorFaltas(aprovadoFaltas)
+                // resultado
                 .aprovadoGeral(r.aprovadoPorNota() && aprovadoFaltas)
 
                 .build();

@@ -11,21 +11,19 @@ public class ResultadoAprovacaoDTO {
 
     private Integer inscricaoId;
     private Integer alunoId;
+    private String alunoNome;
     private Integer turmaId;
+    private String disciplinaNome;
 
     private BigDecimal ap1;
     private BigDecimal ap2;
     private BigDecimal ac;
     private BigDecimal as;
-    
+
     private Integer numeroFaltas;
     private Integer limiteFaltas;
-    private Integer faltasRestantes;
 
     private BigDecimal notaFinal;
-    private boolean usouAS;
 
-    private boolean aprovadoPorNota;
-    private boolean aprovadoPorFaltas;
     private boolean aprovadoGeral;
 }
